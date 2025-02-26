@@ -1,7 +1,8 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
+import userRoutes from "./routes/users";
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING as string)
@@ -12,9 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get("/test", async (req: Request, res: Response) => {
-  res.json({ message: "Hello from Express" });
-});
+app.use("/api/users", userRoutes);
 
 const port = process.env.PORT;
 app.listen(port, () => {
