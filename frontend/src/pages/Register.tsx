@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as apiClient from "../api-client";
+import { useAppContext } from "../contexts/AppContext";
 
 export type RegisterFormData = {
   firstName: string;
@@ -11,6 +12,8 @@ export type RegisterFormData = {
 };
 
 const Register = () => {
+  const { showToast } = useAppContext();
+
   const {
     register,
     watch,
@@ -21,10 +24,10 @@ const Register = () => {
   const mutation = useMutation({
     mutationFn: apiClient.register,
     onSuccess: async () => {
-      console.log("Account created successfully");
+      showToast({ message: "Registration Success!", type: "SUCCESS" });
     },
     onError: (error: Error) => {
-      console.error(error.message);
+      showToast({ message: error.message, type: "ERROR" });
     },
   });
 
