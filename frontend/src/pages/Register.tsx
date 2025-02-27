@@ -1,4 +1,6 @@
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import * as apiClient from "../api-client";
 
 export type RegisterFormData = {
   firstName: string;
@@ -16,8 +18,18 @@ const Register = () => {
     formState: { errors },
   } = useForm<RegisterFormData>();
 
+  const mutation = useMutation({
+    mutationFn: apiClient.register,
+    onSuccess: async () => {
+      console.log("Account created successfully");
+    },
+    onError: (error: Error) => {
+      console.error(error.message);
+    },
+  });
+
   const onSubmit = handleSubmit(data => {
-    console.log(data);
+    mutation.mutate(data);
   });
   return (
     <form className="flex flex-col gap-5" onSubmit={onSubmit}>
