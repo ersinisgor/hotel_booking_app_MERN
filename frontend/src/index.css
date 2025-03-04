@@ -1,5 +1,2 @@
 @import "tailwindcss";
-
-@utility container {
-  padding-inline: 10rem;
-}
+@config "../tailwind.config.js";
