@@ -16,6 +16,7 @@ const GuestsSection = () => {
           <input
             className="border rounded w-full py-2 px-3 font-normal"
             type="number"
+            style={{ backgroundColor: "#fff" }}
             min={1}
             {...register("adultCount", {
               required: "This field is required",
@@ -32,6 +33,7 @@ const GuestsSection = () => {
           <input
             className="border rounded w-full py-2 px-3 font-normal"
             type="number"
+            style={{ backgroundColor: "#fff" }}
             min={0}
             {...register("childCount", {
               required: "This field is required",
