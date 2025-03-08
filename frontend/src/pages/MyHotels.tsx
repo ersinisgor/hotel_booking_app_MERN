@@ -29,6 +29,7 @@ const MyHotels = () => {
       <div className="grid grid-cols-1 gap-8">
         {hotelData.map(hotel => (
           <div
+            key={hotel._id}
             data-testid="hotel-card"
             className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5"
           >
@@ -44,7 +45,7 @@ const MyHotels = () => {
                 {hotel.type}
               </div>
               <div className="border border-slate-300 rounded-sm p-3 flex items-center">
-                <BiMoney className="mr-1" />£{hotel.pricePerNight} per night
+                <BiMoney className="mr-1" />${hotel.pricePerNight} per night
               </div>
               <div className="border border-slate-300 rounded-sm p-3 flex items-center">
                 <BiHotel className="mr-1" />
