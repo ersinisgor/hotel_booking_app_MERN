@@ -18,12 +18,22 @@ const EditHotel = () => {
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: apiClient.updateMyHotelById,
+    mutationFn: (formData: FormData) => {
+      const hotelId = formData.get("hotelId");
+      if (!hotelId) {
+        throw new Error("Hotel ID is required");
+      }
+
+      return apiClient.updateMyHotelById(formData);
+    },
     onSuccess: () => {
       showToast({ message: "Hotel Saved!", type: "SUCCESS" });
     },
-    onError: () => {
-      showToast({ message: "Error Saving Hotel", type: "ERROR" });
+    onError: (error: Error) => {
+      showToast({
+        message: error.message || "Error Saving Hotel",
+        type: "ERROR",
+      });
     },
   });
 
