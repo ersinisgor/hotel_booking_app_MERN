@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchContext } from "../contexts/SearchContext";
 import * as apiClient from "../api-client";
 import { useState } from "react";
+import SearchResultsCard from "../components/SearchResultsCard";
 
 const Search = () => {
   const search = useSearchContext();
@@ -37,6 +38,9 @@ const Search = () => {
             {search.destination ? ` in ${search.destination}` : ""}
           </span>
         </div>
+        {hotelData?.data.map(hotel => (
+          <SearchResultsCard hotel={hotel} />
+        ))}
       </div>
     </div>
   );
