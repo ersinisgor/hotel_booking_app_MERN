@@ -1,8 +1,12 @@
-import { UserType } from "../../../../backend/src/shared/types";
+import {
+  PaymentIntentResponse,
+  UserType,
+} from "../../../../backend/src/shared/types";
 import { useForm } from "react-hook-form";
 
 type Props = {
   currentUser: UserType;
+  paymentIntent: PaymentIntentResponse;
 };
 
 export type BookingFormData = {
