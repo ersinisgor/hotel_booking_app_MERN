@@ -1,8 +1,4 @@
-import {
-  PaymentElement,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import {
   PaymentIntentResponse,
   UserType,
@@ -11,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useAppContext } from "../../contexts/AppContext";
 import { useMutation } from "@tanstack/react-query";
 import { useSearchContext } from "../../contexts/SearchContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as apiClient from "../../api-client";
 
 type Props = {
@@ -39,6 +35,8 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
   const stripe = useStripe();
   const elements = useElements();
+
+  const navigate = useNavigate();
 
   const { mutate: bookRoom, isPending } = useMutation({
     mutationFn: apiClient.createRoomBooking,
@@ -82,13 +80,10 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
     // Confirm the payment
     const { error, paymentIntent: confirmedPaymentIntent } =
-      await stripe.confirmPayment({
-        elements,
-        clientSecret: paymentIntent.clientSecret,
-        confirmParams: {
-          return_url: "http://localhost:5173",
+      await stripe.confirmCardPayment(paymentIntent.clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement)!,
         },
-        redirect: "if_required",
       });
 
     if (error) {
@@ -108,9 +103,12 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
         ...formData,
         paymentIntentId: confirmedPaymentIntent.id,
       };
-      console.log(updatedFormData);
 
       bookRoom(updatedFormData);
+
+      setTimeout(() => {
+        navigate("/my-bookings");
+      }, 1400);
     }
   };
 
@@ -166,7 +164,11 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
       <div className="space-y-2">
         <h3 className="text-xl font-semibold"> Payment Details</h3>
-        <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
+        {/* <PaymentElement id="payment-element" options={{ layout: "tabs" }} /> */}
+        <CardElement
+          // id="payment-element"
+          className="border rounded-md p-2 text-sm"
+        />
       </div>
 
       <div className="flex justify-end">
