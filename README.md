@@ -62,6 +62,17 @@ To explore the app, use the following credentials:
 
 Alternatively, users can register with their own email addresses.
 
+## Testing Payments
+
+To test the booking process with payments, use Stripe's test credit card details during checkout. This simulates a successful payment without real charges:
+
+- **Card Number**: 4242 4242 4242 4242
+- **Expiry Date**: Any future date (e.g., 12/25)
+- **CVC**: Any 3 digits (e.g., 123)
+- **ZIP Code**: Any (e.g., 12345)
+
+Follow the booking flow: Select a hotel, proceed to checkout, enter the test card details, and complete the payment to verify the reservation.
+
 ## Setup and Installation
 
 Follow these steps to set up and run the Booking App MERN project locally.
