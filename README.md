@@ -57,8 +57,8 @@ The Booking App provides a user-friendly platform for hotel reservations:
 
 To explore the app, use the following credentials:
 
-- **Email**: test@mail.com
-- **Password**: Test@123
+- **Email**: ss@ss.com
+- **Password**: 123456
 
 Alternatively, users can register with their own email addresses.
 
